@@ -5,30 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plant Health AI Assistant</title>
     <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
     <div id="app">
       <nav class="top-nav">
         <div class="nav-content">
-          <div class="logo">Plant Health AI</div>
+          <div class="logo"><i class="fas fa-leaf"></i> Plant Health AI</div>
           <div class="nav-links">
             <a href="#how-it-works">How It Works</a>
-            <a href="#mission">Our Mission</a>
+            <a href="#diagnostic-tool">Diagnose</a>
             <a href="#faq">FAQ</a>
           </div>
         </div>
       </nav>
 
       <header class="hero">
+        <div class="hero-particles"></div>
         <h1>Plant Health AI</h1>
-        <p>Advanced diagnostic analysis for your plant's well-being</p>
+        <p>Advanced diagnostic analysis powered by cutting-edge artificial intelligence</p>
         <div class="trust-badges">
           <div class="badge">
-            <span class="number">50,000+</span>
+            <span class="number" data-count="50000">0</span><span class="number-plus">+</span>
             <span class="label">Plants Analyzed</span>
           </div>
           <div class="badge">
-            <span class="number">98%</span>
+            <span class="number" data-count="98">0</span><span class="number-percent">%</span>
             <span class="label">Accuracy Rate</span>
           </div>
           <div class="badge">
@@ -41,55 +43,135 @@
       <section id="how-it-works" class="info-section">
         <h2>How It Works</h2>
         <div class="steps-grid">
-          <div class="step">
+          <div class="step" data-aos="fade-up" data-aos-delay="100">
             <span class="step-number">01</span>
-            <h3>Select Symptoms</h3>
-            <p>Choose the visible symptoms your plant is showing from our comprehensive list.</p>
+            <h3>Select Plant Type</h3>
+            <p>Choose your plant type from our supported varieties including potato, apple, corn, and grape.</p>
           </div>
-          <div class="step">
+          <div class="step" data-aos="fade-up" data-aos-delay="200">
             <span class="step-number">02</span>
-            <h3>Add Details</h3>
-            <p>Provide information about watering schedule and light exposure.</p>
+            <h3>Upload Image</h3>
+            <p>Take a clear picture of the affected plant leaf or area and upload it to our AI analysis system.</p>
           </div>
-          <div class="step">
+          <div class="step" data-aos="fade-up" data-aos-delay="300">
             <span class="step-number">03</span>
             <h3>Get Analysis</h3>
-            <p>Receive instant AI-powered diagnosis and care recommendations.</p>
+            <p>Receive instant AI-powered diagnosis with detailed insights and treatment recommendations.</p>
           </div>
         </div>
       </section>
 
-      <!-- Centered Form -->
-      <div align="center">
-        <form id="uploadForm" enctype="multipart/form-data">
-          <label for="plantType">Select Plant:</label>
-          <select id="plantType" name="plantType" required>
-            <option value="potato">Potato (97.2% accuracy)</option>
-            <option value="apple">Apple (96.3% accuracy)</option>
-            <option value="corn">Corn (95.4% accuracy)</option>
-            <option value="grape">Grape (95.1% accuracy)</option>
-          </select>
-          <br>
-          <label for="fileUpload"></label>
-          <input type="file" id="fileUpload" name="file" accept="image/*" required>
-          <br>
-          <button type="submit" class="green-button">Diagnose Now</button>
-        </form>
-        <div id="result"></div>
-        <br>
-      </div>
+      <!-- Modern Diagnostic Tool -->
+      <section id="diagnostic-tool" class="info-section">
+        <h2>AI Plant Diagnostic Tool</h2>
+        <div class="diagnostic-tool">
+          <div class="diagnostic-glow"></div>
+          
+          <div class="diagnostic-layout">
+            <!-- Left side: Plant selection and upload -->
+            <div class="diagnostic-input">
+              <h3>1. Select Plant Type</h3>
+              <div class="plant-selection">
+                <div class="plant-option" data-value="potato">
+                  <i class="fas fa-seedling plant-icon"></i>
+                  Potato
+                  <span>97.2% accuracy</span>
+                </div>
+                <div class="plant-option" data-value="apple">
+                  <i class="fas fa-apple-alt plant-icon"></i>
+                  Apple
+                  <span>96.3% accuracy</span>
+                </div>
+                <div class="plant-option" data-value="corn">
+                  <i class="fas fa-wheat plant-icon"></i>
+                  Corn
+                  <span>95.4% accuracy</span>
+                </div>
+                <div class="plant-option" data-value="grape">
+                  <i class="fas fa-wine-glass-alt plant-icon"></i>
+                  Grape
+                  <span>95.1% accuracy</span>
+                </div>
+              </div>
+              
+              <h3>2. Upload Plant Image</h3>
+              <div class="file-upload-container">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag and drop your plant image or click to browse</p>
+                <input type="file" id="fileUpload" accept="image/*" required />
+              </div>
+              
+              <div class="file-preview">
+                <img id="imagePreview" src="#" alt="Preview" />
+              </div>
+              
+              <div class="action-buttons">
+                <button type="button" id="diagnoseButton" class="diagnose-btn" disabled>
+                  <span class="btn-text">Diagnose Now</span>
+                  <div class="btn-loading">
+                    <span></span><span></span><span></span>
+                  </div>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Right side: Results -->
+            <div class="diagnostic-results">
+              <div id="result">
+                <h3>Diagnosis Results</h3>
+                <div class="prediction">
+                  <div class="prediction-tag" id="predictedClass">Healthy</div>
+                </div>
+                <p id="resultDetails">Upload an image to get your plant diagnosis.</p>
+                <div class="confidence-bar">
+                  <div class="fill" style="width: 0%"></div>
+                </div>
+                <div class="confidence-value">Confidence: <span id="confidenceValue">0</span>%</div>
+                
+                <!-- User Feedback Section -->
+                <div class="feedback-section">
+                  <h4>Help Improve Our AI</h4>
+                  <p>Was this prediction accurate and helpful?</p>
+                  <div class="feedback-buttons">
+                    <button id="feedbackYes" class="feedback-btn feedback-yes">
+                      <i class="fas fa-thumbs-up"></i> Yes
+                    </button>
+                    <button id="feedbackNo" class="feedback-btn feedback-no">
+                      <i class="fas fa-thumbs-down"></i> No
+                    </button>
+                  </div>
+                  <div class="feedback-comment-container">
+                    <textarea id="feedbackComment" placeholder="Tell us what could be improved (optional)"></textarea>
+                    <button id="submitFeedback" class="submit-feedback-btn">
+                      Submit Feedback
+                    </button>
+                  </div>
+                  <div id="feedbackThanks" class="feedback-thanks">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Thanks for your feedback! It helps us improve our AI.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="start-prompt">
+                <i class="fas fa-arrow-left"></i>
+                <p>Select a plant type and upload an image to start</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section id="mission" class="info-section">
         <h2>Our Mission</h2>
         <div class="mission-content">
           <p class="mission-text">We're dedicated to making expert plant care accessible to everyone through advanced AI technology. Our goal is to help you maintain healthy, thriving plants while promoting sustainable gardening practices.</p>
           <div class="mission-stats">
-            <div class="stat">
-              <span class="number">100+</span>
+            <div class="stat" data-aos="zoom-in" data-aos-delay="100">
+              <span class="number" data-count="100">0</span><span class="number-plus">+</span>
               <span class="label">Plant Species</span>
             </div>
-            <div class="stat">
-              <span class="number">15+</span>
+            <div class="stat" data-aos="zoom-in" data-aos-delay="200">
+              <span class="number" data-count="15">0</span><span class="number-plus">+</span>
               <span class="label">Care Metrics</span>
             </div>
           </div>
@@ -99,19 +181,19 @@
       <section id="faq" class="info-section">
         <h2>Frequently Asked Questions</h2>
         <div class="faq-grid">
-          <div class="faq-item">
+          <div class="faq-item" data-aos="fade-right" data-aos-delay="100">
             <h3>How accurate is the AI diagnosis?</h3>
             <p>Our AI system has been trained on millions of plant health data points, achieving 98% accuracy in identifying common plant issues.</p>
           </div>
-          <div class="faq-item">
+          <div class="faq-item" data-aos="fade-right" data-aos-delay="200">
             <h3>Is this service free?</h3>
             <p>Yes, our basic plant health analysis is completely free to use. We believe everyone should have access to quality plant care advice.</p>
           </div>
-          <div class="faq-item">
+          <div class="faq-item" data-aos="fade-right" data-aos-delay="300">
             <h3>What types of plants can I analyze?</h3>
-            <p>Our AI can analyze most common houseplants, garden plants, and agricultural crops. The system is continuously learning and expanding its knowledge.</p>
+            <p>Currently, our AI can analyze potatoes, apples, corn, and grapes with high accuracy. We're continuously expanding to support more plant types.</p>
           </div>
-          <div class="faq-item">
+          <div class="faq-item" data-aos="fade-right" data-aos-delay="400">
             <h3>How often should I check my plants?</h3>
             <p>We recommend weekly checks for most plants, but you can use our tool as often as needed when you notice any concerning changes.</p>
           </div>
@@ -127,7 +209,7 @@
           <div class="footer-section">
             <h4>Quick Links</h4>
             <a href="#how-it-works">How It Works</a>
-            <a href="#mission">Our Mission</a>
+            <a href="#diagnostic-tool">Diagnose</a>
             <a href="#faq">FAQ</a>
           </div>
           <div class="footer-section">
@@ -141,7 +223,8 @@
         </div>
       </footer>
     </div>
-    <script type="module" src="/static/scripts.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/static/scripts.js"></script>
   </body>
 </html>
 
